@@ -1,6 +1,6 @@
 "use strect";
 const api = {
-  key: "bfd1cd95e7b44d7587690021230604",
+  key: "249fa98490934471aa301441230704",
   url: "http://api.weatherapi.com/v1/",
 };
 const searchBox = document.querySelector("#sear");
@@ -14,7 +14,7 @@ function setQuery(e) {
 
 function Query(query) {
   fetch(`${api.url}current.json?key=${api.key}&q=${query}`)
-    .then((weather) => {
+    .then(weather => {
       return weather.json();
     })
 
