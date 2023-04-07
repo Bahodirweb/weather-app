@@ -1,21 +1,22 @@
 "use strect";
 const api = {
-  key: "249fa98490934471aa301441230704",
-  url: "http://api.weatherapi.com/v1/",
-};
-const searchBox = document.querySelector("#sear");
 
-searchBox.addEventListener("keypress", setQuery);
+  key: "249fa98490934471aa301441230704",
+  basurl: "http://api.weatherapi.com/v1/",
+}
+const Box = document.querySelector("#sear");
+
+Box.addEventListener("keypress", setQuery);
 function setQuery(e) {
   if (e.keyCode == 13) {
-    Query(searchBox.value);
+    getWeather(Box.value);
   }
 }
 
-function Query(query) {
-  fetch(`${api.url}current.json?key=${api.key}&q=${query}`)
+function getWeather(query) {
+  fetch(`${api.basurl}current.json?key=${api.key}&q=${query}`)
     .then(weather => {
-      return weather.json();
+    return weather.json();
     })
 
     .then(displayResult);
@@ -26,12 +27,16 @@ function displayResult(weather) {
   region.innerHTML = `${weather.location.country}, ${weather.location.name} `;
 
   const temp = document.querySelector(".temp");
-  temp.innerHTML = `${Math.round(weather.current.temp_c)}°<span>C</span><img class="cloud" src="${weather.current.condition.icon}">`;
-  const weth=document.querySelector(".weth");
-  weth.innerHTML=`${weather.current.condition.text}`;
+  temp.innerHTML = `${Math.round(
+    weather.current.temp_c
+  )}°<span>C</span><img class="cloud" src="${weather.current.condition.icon}">`;
+  const weth = document.querySelector(".weth");
+  weth.innerHTML = `${weather.current.condition.text}`;
 
-  const wethType=document.querySelector(".weth-type");
-  wethType.innerHTML=`${Math.round(weather.current.feelslike_c)}<span>°C /</span> ${Math.round(weather.current.temp_c)}<span></span>°C `
+  const wethType = document.querySelector(".weth-type");
+  wethType.innerHTML = `${Math.round(
+    weather.current.feelslike_c
+  )}<span>°C /</span> ${Math.round(weather.current.temp_c)}<span></span>°C `;
   const d = new Date();
   const weekday = new Array(7);
   weekday[0] = "sunday";
@@ -63,6 +68,6 @@ function displayResult(weather) {
   let name = month[dn.getMonth()];
   console.log(name);
 
-  const date =document.querySelector(".date");
-  date.innerHTML=`${weather.current.last_updated} ${day} `
+  const date = document.querySelector(".date");
+  date.innerHTML = `${weather.current.last_updated} ${day} `;
 }
